@@ -84,6 +84,6 @@ void main() {
 	cout << " Введите количество переменных : ";
 	cin >> kol;
 	double R = calc(oper, kol, arr);
-	cout << " Результат = " << R << endl;
+	printf(" Результат = %1.f \n", R);
 	system("pause");
 }
