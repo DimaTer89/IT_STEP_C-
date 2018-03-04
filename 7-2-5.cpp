@@ -66,8 +66,6 @@ double calc(char op, int kol, double *ptr,...) {
 	case '*': return proiz; break;
 	case 's': return (double)sum / count; break;
 	}
-	cout << " Ошибка !!!\n";
-	return 1;
 }
 void main() {
 	setlocale(LC_ALL, "rus");
