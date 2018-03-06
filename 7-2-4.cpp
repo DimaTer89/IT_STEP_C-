@@ -6,7 +6,7 @@
 #define ROW 4
 #define COL 5
 using namespace std;
-void randArr(double *ptr, int n,int m) {
+void randArr(double *ptr, int n, int m) {
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < m; j++, ptr++)
 		{
@@ -24,24 +24,21 @@ void printArr(double *ptr, int n, int m) {
 		cout << endl;
 	}
 }
-void changeCol(int col,double mas[][COL], int n) {
+void changeCol(int col, double mas[][COL], int n) {
 	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < COL; j++) {
-			if (col<=COL&&(j+1) == col) {
-				mas[i][j] *= -1;
+				mas[i][col] *= -1;
 			}
-		}
-	}
+		
+	
 }
 void changePer(int col, double *ptr, int n, int m) {
-	
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < m; j++, ptr++) {
-			if ((j + 1) == col) {
+	ptr = ptr + col;
+	for (int i = 0; i < n; i++,ptr+=m) {
+		
 				*ptr *= -1;
 			}
-		}
-	}
+		
+	
 }
 void main() {
 	setlocale(LC_ALL, "rus");
@@ -52,7 +49,7 @@ void main() {
 	randArr(&arr[0][0], ROW, COL);
 	cout << " Введите номер столбца :";
 	cin >> num;
-	changeCol(num,arr, ROW);
+	changeCol(num, arr, ROW);
 	cout << " Изменённый массив(для пяти столбцов) :\n";
 	printArr(&arr[0][0], ROW, COL);
 	printf("=====================================\n");
