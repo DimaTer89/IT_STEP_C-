@@ -3,17 +3,18 @@
 using namespace std;
 void vyvod(int a, int b) {
 	if (a == b) {
-		cout << b;
+		cout << " " << b;
 		return;
 	}
-	
+
 	if (a < b) {
-		vyvod(a+1,b);
-		cout <<" " << a ;
+		
+		cout << " " << a++;
+		vyvod(a, b);
 	}
 	if (a > b) {
-		vyvod(b,a-1);
-		cout <<" "<< a;
+		cout << " " << a--;
+		vyvod(a,b);
 	}
 }
 void main() {
