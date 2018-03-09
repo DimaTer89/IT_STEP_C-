@@ -27,6 +27,6 @@ void main() {
 	cout << " Введите диапозон 2 : ";
 	cin >> num2;
 	printf(" ||     X      ||     Y      ||\n");
-    myFun(num, num2, fun);
+        myFun(num, num2, fun);
 	system("pause");
 }
