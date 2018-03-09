@@ -14,14 +14,10 @@ double fun(double x) {
 	y = x * 2 + 4;
 	return y;
 }
-double myFun(double a, double b, double(*fPtr)(double)) {
-	double low = a;
-	double hihg = b;
-	double s;
+void myFun(double a, double b, double(*fPtr)(double)) {
 	for (double x = a; x < b; x++) {
-		s = (*fPtr)(x);
+		printf(" ||  %5.2f     ||  %5.2f     || \n",x,(*fPtr)(x));
 	}
-	return s;
 }
 void main() {
 	setlocale(LC_ALL, "rus");
@@ -30,7 +26,7 @@ void main() {
 	cin >> num;
 	cout << " Введите диапозон 2 : ";
 	cin >> num2;
-	printf(" ||    X     ||     Y     ||\n");
-	printf(" %3f      %3f     \n", num, myFun(num, num2, two));
+	printf(" ||     X      ||     Y      ||\n");
+    myFun(num, num2, fun);
 	system("pause");
 }
