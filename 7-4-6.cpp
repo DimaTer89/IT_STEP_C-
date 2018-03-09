@@ -15,18 +15,36 @@ double fun(double x) {
 	return y;
 }
 void myFun(double a, double b, double(*fPtr)(double)) {
-	for (double x = a; x < b; x++) {
+	double x = a;
+	int i = 0;
+	while(i<10&&x <= b) {
 		printf(" ||  %5.2f     ||  %5.2f     || \n",x,(*fPtr)(x));
+		x++;
+		i++;
 	}
+}
+int menu() {
+	cout << " Введите действие :\n";
+	cout << " 1 - вывод значений от а до b функции y=x2 \n";
+	cout << " 2 - вывод значений от а до b функции y=x*2+4 \n";
+	int k;
+	do {
+		cin >> k;
+		if (k < 0 || k>2)cout << " Ошибка ! Введите снова : ";
+	} while (k < 0 || k>2);
+	return k;
 }
 void main() {
 	setlocale(LC_ALL, "rus");
 	double num,num2;
+	double(*mPtr[2])(double) = { two,fun };
 	cout << " Введите диапозон 1 : ";
 	cin >> num;
 	cout << " Введите диапозон 2 : ";
 	cin >> num2;
+	int j;
+	j = menu();
 	printf(" ||     X      ||     Y      ||\n");
-        myFun(num, num2, fun);
+	myFun(num, num2, mPtr[j - 1]);
 	system("pause");
 }
