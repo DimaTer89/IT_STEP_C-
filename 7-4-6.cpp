@@ -15,12 +15,9 @@ double fun(double x) {
 	return y;
 }
 void myFun(double a, double b, double(*fPtr)(double)) {
-	double x = a;
-	int i = 0;
-	while(i<10&&x <= b) {
+	double h = (b - a) /10;
+	for (double x=a;x<b;x+=h) {
 		printf(" ||  %5.2f     ||  %5.2f     || \n",x,(*fPtr)(x));
-		x++;
-		i++;
 	}
 }
 int menu() {
