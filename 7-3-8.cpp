@@ -13,16 +13,15 @@ void printArr(int *a, int n,int m) {
 }
 void shift(int n, int a[][4], int size) {
 	int k = 0;
-	while (k < n){
-		for (int i = 0; i < size; i++) {
-			for (int j = 1; j < 4; j++) {
-				int tmp = a[i][j];
-				a[i][j] = a[i][j - 1];
-				a[i][j - 1] = tmp;
-			}
+	for (int i = 0; i < size; i++) {
+		for (int j = 1; j < 4; j++) {
+			int tmp = a[i][j];
+			a[i][j] = a[i][j - 1];
+			a[i][j - 1] = tmp;
 		}
+	}
 	k++;
-    }
+	if(k<n)shift(k,a,3);
 }
 void print(int *a, int size) {
 	for (int i = 0; i < size; i++, a++) {
