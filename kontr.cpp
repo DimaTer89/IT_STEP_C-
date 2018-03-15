@@ -1,6 +1,5 @@
 #include <iostream>
 #include <time.h>
-#define N 10
 #define ROW 4
 #define COL 7
 using namespace std;
@@ -19,17 +18,7 @@ bool simple(int a) {
 	}
 	return flag;
 }
-void randArr(int *a, int size) {
-	for (int i = 0; i < size; i++, a++) {
-		*a = rand()%101;
-	}
-}
-void printArr(int *a, int size) {
-	for (int i = 0; i < size; i++, a++) {
-		cout << " " << *a;
-	}
-	cout << endl;
-}
+
 int kolsimple(int *a, int size) {
 	int kol = 0;
 	for (int i = 0; i < size; i++, a++) {
@@ -60,12 +49,11 @@ void main() {
 	setlocale(LC_ALL, "rus");
 	srand(time(0));
 	int twoArr[ROW][COL];
-	cout << " Количество простых чисел в массиве = " << kolsimple(arr, N) << endl;
 	cout << " Двумерный массив \n";
-	randArr(&twoArr[0][0], ROW, COL);
+	randArr(twoArr[0], ROW, COL);
 	printArr(&twoArr[0][0], ROW, COL);
 	for (int i = 0; i < ROW; i++) {
-		cout << " Простые числа для " << i + 1 << " строки = " << kolsimple(twoArr[0] + i*COL, COL) << endl;
+		cout << " Простые числа для " << i + 1 << " строки = " << kolsimple(twoArr[i], COL) << endl;
 	}
 	system("pause");
 }
