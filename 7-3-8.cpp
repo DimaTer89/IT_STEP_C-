@@ -12,8 +12,8 @@ void randArr(int *a, int n, int m) {
 	}
 }
 void printArr(int *a, int n,int m) {
-	for (int i = 0; i < 3; i++) {
-		for (int j = 0; j < 4; j++, a++) {
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++, a++) {
 			printf(" %3d ", *a);
 		}
 		cout << endl;
