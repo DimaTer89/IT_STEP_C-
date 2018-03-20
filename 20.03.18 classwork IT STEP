@@ -1,0 +1,146 @@
+#include <iostream>
+#include <time.h>
+using namespace std;
+void init(int *m, int n) {
+	for (int i = 0; i < n; i++) {
+		m[i] = rand() % 11 - 5;
+	}
+}
+void print(int *m, int n) {
+	for (int i = 0; i < n; i++) {
+		cout << m[i] << " ";
+	}
+	cout << endl;
+}
+void dubl(int* &m, int &n) {
+	int *ptr = new int[n * 2];
+	int j = 0;
+	for (int i = 0; i < n; i++) {
+		ptr[j] = m[i];
+		ptr[j + 1] = m[i];
+		j += 2;
+	}
+	delete[] m;
+	m = ptr;
+	n = n * 2;
+}
+void main() {
+	setlocale(LC_ALL, "rus");
+	int n;
+	int *mas = 0;
+	cout << " Введите размер массива : ";
+	cin >> n;
+	mas = new int[n];
+	srand(time(0));
+	init(mas, n);
+	cout << " Исходный массив : \n";
+	print(mas, n);
+	dubl(mas, n);
+	cout << " Полученный массив : \n";
+	print(mas, n);
+	delete[] mas;
+	mas = NULL;
+	system("pause");
+}
+=================================
+Двумерный массив
+#include <iostream>
+#include <time.h>
+using namespace std;
+void init(int **mas, int n, int m) {
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) {
+			mas[i][j] = rand() % 21;
+		}
+	}
+}
+void print(int **mas, int n, int m) {
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) {
+			cout << mas[i][j] << "\t";
+		}
+		cout << endl;
+	}
+	cout << endl;
+}
+void main() {
+	setlocale(LC_ALL, "rus");
+	int n, m;
+	int** mas;
+	cout << " Введите количество строк : ";
+	cin >> n;
+	cout << " Введите количество столбцов : ";
+	cin >> m;
+	mas = new int*[n];
+	for (int i = 0; i < n; i++) {
+		mas[i] = new int[m];
+	}
+	srand(time(0));
+	init(mas, n, m);
+	print(mas, n, m);
+	for (int i = 0; i < n; i++) {
+		delete[] mas[i];
+	}
+	delete[] mas;
+	system("pause");
+}
+===============================
+Трехмерный массив
+#include <iostream>
+#include <time.h>
+using namespace std;
+void init(int ***mas, int n, int m, int k) {
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) {
+			for (int l = 0; l < k; l++) {
+				mas[i][j][l] = rand() % 21;
+			}
+		}
+	}
+}
+void print(int ***mas, int n, int m, int k) {
+	for (int i = 0; i < n; i++) {
+		cout << " Слой " << i+1 << endl;
+		for (int j = 0; j < m; j++) {
+			for (int l = 0; l < k; l++) {
+				cout << mas[i][j][l] << "\t";
+			}
+			cout << endl;
+		}
+		cout << endl;
+	}
+}
+void main() {
+	setlocale(LC_ALL, "rus");
+	srand(time(0));
+	int n, m, k;
+	cout << " Введите размерность 1 : ";
+	cin >> n;
+	cout << " Введите размерность 2 : ";
+	cin >> m;
+	cout << " Введите размерность 3 : ";
+	cin >> k;
+	int ***mas;
+	mas = new int**[n];
+	for (int i = 0; i < n; i++) {
+		mas[i] = new int *[m];
+	}
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) {
+			mas[i][j] = new int [k];
+		}
+	}
+	init(mas, n, m, k);
+	print(mas, n, m, k);
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) {
+			delete mas[i][j];
+		}
+	}
+	for (int i = 0; i < n; i++) {
+		delete mas[i];
+	}
+	delete[] mas;
+	system("pause");
+}
+=============================
