@@ -25,23 +25,18 @@ void perevorot(int *ptr, int *endPtr) {
 		endPtr--;
 	}
 }
-void oladki(int a[], int *endPtr, int n) {
-	int *mPtr = a;
-	int *maxPtr = mPtr;
-	int *xPtr = mPtr;
-	int max = *maxPtr;
-	int ind = 0;
-	int kol = n;
-	for (int i = 0; i < n; i++, maxPtr++) {
-		if (*maxPtr > max) {
-			max = *maxPtr;
-			ind = i;
-		}
+void oladki(int *ptr, int *endPtr) {
+	int *begPtr = ptr;
+	int *max = ptr;
+	while (ptr < endPtr) {
+		if (*ptr > *max)max = ptr;
+		ptr++;
 	}
-	int *pptr = a + ind;
-	cout << max << " " << ind << endl;
-	perevorot(pptr, endPtr);
-	perevorot(a, endPtr);
+	cout << *max << endl;
+	perevorot(max, endPtr);
+	perevorot(begPtr, endPtr);
+	/*ptr++;
+	if (ptr < endPtr)oladki(ptr, endPtr);*/
 }
 void main() {
 	setlocale(LC_ALL, "rus");
@@ -50,8 +45,9 @@ void main() {
 	randArr(arr, N);
 	cout << " Массив \n";
 	printArr(arr, N);
-	int *endPtr = arr + N - 1;
-	oladki(arr, endPtr, N);
+	int *ptr = arr;
+	int *endPtr = arr + N-1;
+	oladki(ptr, endPtr);
 	printArr(arr, N);
 	system("pause");
 }
