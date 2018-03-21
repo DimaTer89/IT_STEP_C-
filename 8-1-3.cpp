@@ -58,10 +58,22 @@ void manyPlus(int *&mas, int &size) {
 	mas = ptr;
 	size = size + kol;
 }
+int menu() {
+	cout << " 1 - Добавления элемента в массив с заданной позиции. " << endl;
+	cout << " 2 - Добавление нескольких элементов из массива, начиная с заданной позиции." << endl;
+	int menu;
+	do {
+		cout << " Введите номер операции : ";
+		cin >> menu;
+		if (menu < 1 || menu>2)cout << " Ошибка ! Введите снова : ";
+	} while (menu < 1 || menu>2);
+	return menu;
+}
 void main() {
 	setlocale(LC_ALL, "rus");
 	srand(time(0));
 	int n;
+	void(*fPtr[2])(int *&mas,int &n) = { onePlus,manyPlus };
 	cout << " Введите размер массива : ";
 	cin >> n;
 	int *ptr;
@@ -69,10 +81,10 @@ void main() {
 	randArr(ptr, n);
 	cout << " Исходный массив \n";
 	printArr(ptr, n);
-	manyPlus(ptr, n);
+	int j;
+	j = menu();
+	fPtr[j - 1](ptr,n);
 	printArr(ptr, n);
-	onePlus(ptr, n);
-	printArr(ptr,n);
 	delete[]ptr;
 	ptr = NULL;
 	system("pause");
