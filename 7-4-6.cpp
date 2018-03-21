@@ -16,7 +16,7 @@ double fun(double x) {
 }
 void myFun(double a, double b, double(*fPtr)(double)) {
 	double h = (b - a) /10;
-	for (double x=a;x<b;x+=h) {
+	for (double x=a;x<b+h;x+=h) {
 		printf(" ||  %5.2f     ||  %5.2f     || \n",x,(*fPtr)(x));
 	}
 }
