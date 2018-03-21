@@ -17,13 +17,37 @@ void printArr(int *mas, int size) {
 	}
 	cout << endl;
 }
-void reform(int *&mas, int &size,int &posish,int &kol) {
+void onePlus(int *&mas, int &size) {
+	int  pos;
+	cout << " Введите позицию : ";
+	cin >> pos;
+	int *ptr = new int[size+1];
+	int j = 0;
+	int k = 0;
+	for (int i = 0; i < size; i++) {
+		ptr[j] = mas[i];
+		j++;
+		if (i == pos) {
+			ptr[j] = (mas[k] = rand() % 21 - 10);
+			j++;
+		}
+	}
+	delete[]mas;
+	mas = ptr;
+	size =size + 1;
+}
+void manyPlus(int *&mas, int &size) {
+	int kol, pos;
+	cout << " Введите позицию : ";
+	cin >> pos;
+	cout << " Введите количество : ";
+	cin >> kol;
 	int *ptr = new int[size + kol];
 	int j = 0;
 	for (int i = 0; i < size; i++) {
 		ptr[j] = mas[i];
 		j++;
-		if (i == posish) {
+		if (i == pos) {
 			for (int k = 0; k < kol; k++) {
 				ptr[j] = (mas[k] = rand() % 21 - 10);
 				j++;
@@ -32,12 +56,12 @@ void reform(int *&mas, int &size,int &posish,int &kol) {
 	}
 	delete[]mas;
 	mas = ptr;
-	size =size + kol;
+	size = size + kol;
 }
 void main() {
 	setlocale(LC_ALL, "rus");
 	srand(time(0));
-	int n, pos, kol;
+	int n;
 	cout << " Введите размер массива : ";
 	cin >> n;
 	int *ptr;
@@ -45,12 +69,10 @@ void main() {
 	randArr(ptr, n);
 	cout << " Исходный массив \n";
 	printArr(ptr, n);
-	cout << " Введите с какой позиции добавить элемент : ";
-	cin >> pos;
-	cout << " Введите колчество элементов : ";
-	cin >>kol;
-	reform(ptr, n,pos,kol);
+	manyPlus(ptr, n);
 	printArr(ptr, n);
+	onePlus(ptr, n);
+	printArr(ptr,n);
 	delete[]ptr;
 	ptr = NULL;
 	system("pause");
