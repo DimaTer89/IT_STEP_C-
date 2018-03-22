@@ -26,17 +26,19 @@ void perevorot(int *ptr, int *endPtr) {
 	}
 }
 void oladki(int *ptr, int *endPtr) {
+	if (ptr >= endPtr) return;
 	int *begPtr = ptr;
 	int *max = ptr;
-	while (ptr < endPtr) {
-		if (*ptr > *max)max = ptr;
-		ptr++;
+	int *tmp = ptr;
+	while (tmp < endPtr) {
+		if (*tmp > *max)max = tmp;
+		tmp++;
 	}
 	cout << *max << endl;
 	perevorot(max, endPtr);
 	perevorot(begPtr, endPtr);
-	/*ptr++;
-	if (ptr < endPtr)oladki(ptr, endPtr);*/
+	ptr++;
+	oladki(ptr, endPtr);
 }
 void main() {
 	setlocale(LC_ALL, "rus");
@@ -46,7 +48,7 @@ void main() {
 	cout << " Массив \n";
 	printArr(arr, N);
 	int *ptr = arr;
-	int *endPtr = arr + N-1;
+	int *endPtr = arr + N - 1;
 	oladki(ptr, endPtr);
 	printArr(arr, N);
 	system("pause");
