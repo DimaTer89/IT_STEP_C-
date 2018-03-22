@@ -13,15 +13,18 @@ void randArr(int *mas, int size) {
 }
 void printArr(int *mas, int size) {
 	for (int i = 0; i < size; i++) {
-		cout << " "<<mas[i] << " ";
+		cout << " " << mas[i] << " ";
 	}
 	cout << endl;
 }
 void onePlus(int *&mas, int &size) {
 	int  pos;
-	cout << " Введите позицию : ";
-	cin >> pos;
-	int *ptr = new int[size+1];
+	do {
+		cout << " Введите позицию : ";
+		cin >> pos;
+		if (pos<0 || pos>(size - 1))cout << " Ошибка ! Введите снова : ";
+	} while (pos<0 || pos>(size - 1));
+	int *ptr = new int[size + 1];
 	int j = 0;
 	int k = 0;
 	for (int i = 0; i < size; i++) {
@@ -34,12 +37,15 @@ void onePlus(int *&mas, int &size) {
 	}
 	delete[]mas;
 	mas = ptr;
-	size =size + 1;
+	size = size + 1;
 }
 void manyPlus(int *&mas, int &size) {
 	int kol, pos;
-	cout << " Введите позицию : ";
-	cin >> pos;
+	do {
+		cout << " Введите позицию : ";
+		cin >> pos;
+		if (pos<0 || pos>(size - 1))cout << " Ошибка ! Введите снова : ";
+	} while (pos<0 || pos>(size - 1));
 	cout << " Введите количество : ";
 	cin >> kol;
 	int *ptr = new int[size + kol];
@@ -73,7 +79,7 @@ void main() {
 	setlocale(LC_ALL, "rus");
 	srand(time(0));
 	int n;
-	void(*fPtr[2])(int *&mas,int &n) = { onePlus,manyPlus };
+	void(*fPtr[2])(int *&mas, int &n) = { onePlus,manyPlus };
 	cout << " Введите размер массива : ";
 	cin >> n;
 	int *ptr;
@@ -83,7 +89,7 @@ void main() {
 	printArr(ptr, n);
 	int j;
 	j = menu();
-	fPtr[j - 1](ptr,n);
+	fPtr[j - 1](ptr, n);
 	printArr(ptr, n);
 	delete[]ptr;
 	ptr = NULL;
