@@ -37,7 +37,26 @@ void onePlus(int *&mas, int &size) {
 	}
 	delete[]mas;
 	mas = ptr;
-	size = size + 1;
+	size += 1;
+}
+void oneMinus(int *&mas, int &size) {
+	int pos;
+	do {
+		cout << " Введите позицию удаленния элемента : ";
+		cin >> pos;
+		if (pos<0 || pos>(size - 1))cout << " Ошибка ! Введите снова : ";
+	} while (pos<0 || pos>(size - 1));
+	int *ptr = new int[size - 1];
+	int j = 0;
+	for (int i = 0; i < size; i++) {
+		if (i != pos) {
+			ptr[j] = mas[i];
+			j++;
+		}
+	}
+	delete[]mas;
+	mas = ptr;
+	size -= 1;
 }
 void manyPlus(int *&mas, int &size) {
 	int kol, pos;
@@ -62,24 +81,47 @@ void manyPlus(int *&mas, int &size) {
 	}
 	delete[]mas;
 	mas = ptr;
-	size = size + kol;
+	size += kol;
+}
+void manyMinus(int *&mas, int &size) {
+	int pos,kol;
+	do {
+		cout << " Введите позицию удаленния элемента : ";
+		cin >> pos;
+		if (pos<0 || pos>(size - 1))cout << " Ошибка ! Введите снова : ";
+	} while (pos<0 || pos>(size - 1));
+	cout << " Введите количество элементов : ";
+	cin >> kol;
+	int *ptr = new int[size - kol];
+	int j = 0;
+	for (int i = 0; i < size; i++) {
+		if (i < pos||i>=pos+kol) {
+			ptr[j] = mas[i];
+			j++;
+		}
+	}
+	delete[]mas;
+	mas = ptr;
+	size -= kol;
 }
 int menu() {
 	cout << " 1 - Добавления элемента в массив с заданной позиции. " << endl;
-	cout << " 2 - Добавление нескольких элементов из массива, начиная с заданной позиции." << endl;
+	cout << " 2 - Удаление заданного элемента массива." << endl;
+	cout << " 3 - Добавление нескольких элементов из массива, начиная с заданной позиции." << endl;
+	cout << " 4 - Удаление нескольких элементов из массива, начиная с заданной позиции." << endl;
 	int menu;
 	do {
 		cout << " Введите номер операции : ";
 		cin >> menu;
-		if (menu < 1 || menu>2)cout << " Ошибка ! Введите снова : ";
-	} while (menu < 1 || menu>2);
+		if (menu < 1 || menu>4)cout << " Ошибка ! Введите снова : ";
+	} while (menu < 1 || menu>4);
 	return menu;
 }
 void main() {
 	setlocale(LC_ALL, "rus");
 	srand(time(0));
 	int n;
-	void(*fPtr[2])(int *&mas, int &n) = { onePlus,manyPlus };
+	void(*fPtr[4])(int *&mas, int &n) = { onePlus,oneMinus,manyPlus,manyMinus };
 	cout << " Введите размер массива : ";
 	cin >> n;
 	int *ptr;
