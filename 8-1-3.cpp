@@ -90,8 +90,11 @@ void manyMinus(int *&mas, int &size) {
 		cin >> pos;
 		if (pos<0 || pos>(size - 1))cout << " Ошибка ! Введите снова : ";
 	} while (pos<0 || pos>(size - 1));
-	cout << " Введите количество элементов : ";
-	cin >> kol;
+	do {
+		cout << " Введите количество элементов : ";
+		cin >> kol;
+		if (kol > size - pos)cout << " Ошибка ! Введите снова : ";
+	} while (kol > size - pos);
 	int *ptr = new int[size - kol];
 	int j = 0;
 	for (int i = 0; i < size; i++) {
