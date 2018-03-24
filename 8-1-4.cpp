@@ -23,23 +23,27 @@ void printArr(int **mas, int row, int col) {
 	}
 	cout << endl;
 }
-void strNul(int **&mas, int &row, int &col,int strike) {
+void strNul(int **&mas, int &row, int &col, int strike) {
 	int **ptr = new int*[row + 1];
 	int j = 0;
 	ptr[strike] = new int[col];
 	for (int j = 0; j < col; j++) {
-		ptr[strike][col] = 0;
+		ptr[strike][j] = NULL;
 	}
 	for (int i = 0; i < row; i++) {
 		if (i < strike) {
 			ptr[j] = mas[i];
-			
+			j++;
 		}
-		if (i == strike) j++;
-		if (i >=strike) {
+		if (i == strike) {
+			j++;
+		}
+		if (i >= strike) {
 			ptr[j] = mas[i];
+			j++;
 		}
-		j++;
+		
+		
 	}
 	delete[]mas;
 	mas = ptr;
