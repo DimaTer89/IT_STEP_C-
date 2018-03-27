@@ -42,8 +42,8 @@ void strNul(int **&mas, int &row, int &col, int &strike) {
 			ptr[j] = mas[i];
 			j++;
 		}
-		
-		
+
+
 	}
 	delete[]mas;
 	mas = ptr;
@@ -66,8 +66,11 @@ void main() {
 	cout << " Исходный массив \n";
 	printArr(mas, row, col);
 	int stroka;
-	cout << " Введите номер строки которая будет добавлена : ";
-	cin >> stroka;
+	do {
+		cout << " Введите номер строки которая будет добавлена : ";
+		cin >> stroka;
+		if (stroka<1 || stroka>row)cout << " Ошибка ! Введите снова : ";
+	} while (stroka<1 || stroka>row);
 	strNul(mas, row, col, stroka);
 	printArr(mas, row, col);
 	for (int i = 0; i < row; i++) {
