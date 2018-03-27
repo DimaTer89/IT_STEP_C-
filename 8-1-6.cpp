@@ -23,7 +23,7 @@ void printArr(int **mas, int row, int col) {
 	}
 	cout << endl;
 }
-void udalCol(int **&mas, int &row, int &col, int stolb) {
+void udalCol(int **&mas, int &row, int &col, int &stolb) {
 	int **ptr = new int*[row];
 	for (int i = 0; i < row; i++) {
 		ptr[i] = new int[col - 1];
@@ -32,7 +32,7 @@ void udalCol(int **&mas, int &row, int &col, int stolb) {
 	int l = 0;
 	for (int i = 0; i < row; i++) {
 		for (int  j= 0; j < col; j++) {
-			if (j != stolb) {
+			if (j != stolb-1) {
 				ptr[k][l] = mas[i][j];
 				l++;
 				
@@ -61,8 +61,11 @@ void main() {
 	randArr(mas, row, col);
 	cout << " Исходный массив \n";
 	printArr(mas, row, col);
-	cout << " Введите номер столбца ,который нужно удалить : ";
-	cin >> stolb;
+	do {
+		cout << " Введите номер столбца ,который нужно удалить : ";
+		cin >> stolb;
+		if (stolb<1 || stolb>col)cout << " Ошибка! Введите снова : ";
+	} while (stolb<1 || stolb>col);
 	udalCol(mas, row, col, stolb);
 	cout << " Преобразованный массив \n";
 	printArr(mas, row, col);
