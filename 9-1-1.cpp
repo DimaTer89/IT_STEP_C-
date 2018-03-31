@@ -1,5 +1,6 @@
 //Введите строку. Замените каждый символ ';' на пару символов “.,”.
 #include <iostream>
+#include <Windows.h>
 using namespace std;
 void zamena(char* str) {
 	while (*str) {
@@ -17,7 +18,8 @@ void zamena(char* str) {
 	}
 }
 void main() {
-	setlocale(LC_ALL, "rus");
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
 	const int N = 128;
 	char str[N];
 	cout << " Введите строку : ";
