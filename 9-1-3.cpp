@@ -6,15 +6,17 @@
 using namespace std;
 void redux(char*str) {
 	while (*str) {
-		if (*str == ' '&&*(str+1)==' ') {
-			char *tmp = str + 1;
+		while (*str == ' '&&*(str+1)==' '){
+			char *tmp = str;
 			char *ptr = tmp + strlen(str);
 			while (tmp < ptr) {
 				*tmp = *(tmp + 1);
 				tmp++;
 			}
+
 		}
-		str++;
+		
+	str++;
 	}
 }
 void main() {
