@@ -1,23 +1,28 @@
-/*Вводится строка, которая состоит из слов, разделенных одним или несколькими пробелами. 
-Пробелы могут быть также перед первым и после последнего слова. 
+/*Вводится строка, которая состоит из слов, разделенных одним или несколькими пробелами.
+Пробелы могут быть также перед первым и после последнего слова.
 Отредактировать строку: удалить все пробелы перед первым словом и после последнего слова. Между словами оставить ровно один пробел.*/
 #include <iostream>
 #include <Windows.h>
 using namespace std;
 void redux(char*str) {
-	while (*str) {
-		while (*str == ' '&&*(str+1)==' '){
-			char *tmp = str;
-			char *ptr = tmp + strlen(str);
-			while (tmp < ptr) {
-				*tmp = *(tmp + 1);
-				tmp++;
-			}
-
+	char *beginStr = str;
+	while (*str != '\0')
+	{
+		while (*str == ' ')
+		{
+			str++;
 		}
-		
-	str++;
+		while (*str != ' ' && *str != '\0')
+		{
+			*beginStr = *str;
+			beginStr++;
+			str++;
+		}
+		*beginStr = ' ';
+		beginStr++;
 	}
+	beginStr--;
+	*beginStr = '\0';
 }
 void main() {
 	SetConsoleCP(1251);
@@ -28,6 +33,6 @@ void main() {
 	gets_s(str, N);
 	cout << " Исходная строка :" << str << endl;
 	redux(str);
-	cout << " Преобразованная строка:" << str << endl;
+	cout << " Преобразованная строка:" << str;
 	system("pause");
 }
