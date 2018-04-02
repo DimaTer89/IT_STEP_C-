@@ -21,7 +21,7 @@ void redux(char*str) {
 		*beginStr = ' ';
 		beginStr++;
 	}
-	beginStr--;
+	beginStr-=2;
 	*beginStr = '\0';
 }
 void main() {
