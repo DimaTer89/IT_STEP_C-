@@ -1,11 +1,14 @@
 //Вводится строка, которая состоит из слов, разделенных одним или несколькими пробелами. Найти и распечатать самое длинное слово
 #include <iostream>
+#include <Windows.h>
 using namespace std;
 void main() {
-	setlocale(LC_ALL, "rus");
-	char string[200];
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+	const int N = 256;
+	char string[N];
 	cout << " Введите строку : ";
-	gets_s(string, 200);
+	gets_s(string, N);
 	char*buf;
 	char * pch = strtok_s(string, " ", &buf);  // получаем первое слово
 	char *word; // самое длинное слово
