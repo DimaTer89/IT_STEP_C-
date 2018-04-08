@@ -41,10 +41,10 @@ void plusKon(char **&mas, int &n) {
 	mas = ptr;
 	n++;
 }
-void minKon(char** &mas, int &n,int kon) {
+void minKon(char** &mas, int &n, int kon) {
 	char**ptr = new char*[n - 1];
 	int j = 0;
-	for (int i = 0; i < kon-1; i++) {
+	for (int i = 0; i < kon - 1; i++) {
 		ptr[j++] = mas[i];
 	}
 	for (int i = kon; i < n; i++) {
@@ -110,13 +110,16 @@ void main() {
 			}
 			viev(phone, n);
 			break;
-		case 4: 
+		case 4:
 			if (n == 0) {
 				cout << " Нет контактов , внесите информацию , для этого выберите пункт №1 \n";
 				break;
 			}
 			sort(phone, n);
 			cout << " Успешно выполнено.\n";
+			break;
+		default:
+			cout << " Нет такое команды , введите снова .\n";
 			break;
 		}
 	} while (menu != 0);
