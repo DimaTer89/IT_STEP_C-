@@ -78,8 +78,11 @@ void main() {
 	cout << "===============================\n";
 	sort(domodedovo, N);
 	char des[30];
-	cout << " Куда вы хотите прилететь : ";
-	cin >> des;
-	destin(domodedovo, N,des);
+	do {
+		cout << " Куда вы хотите прилететь  : ";
+		cin >> des;
+		cout << " Интересующие вас рейсы :\n";
+		destin(domodedovo, N, des);
+	} while (des!= "exit");
 	system("pause");
 }
