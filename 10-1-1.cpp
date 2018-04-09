@@ -101,12 +101,16 @@ void main() {
 				break;
 			}
 			char des[30];
-			do {
-				cout << " Введите пункт назначения :";
-				cin >> des;
-				if (strcmp(domodedovo->destination, des) < 0 || strcmp(domodedovo->destination, des) > 0)cout << " Нет заданного пункта назначения , введите снова \n";
-			} while (strcmp(domodedovo->destination, des) < 0 || strcmp(domodedovo->destination, des) > 0);
-			destin(domodedovo,N, des);
+			cout << " Введите пункт назначения :";
+			cin >> des;
+			for (int i = 0; i < N; i++) {
+			if (strcmp(domodedovo[i].destination, des) == 0)printOne(domodedovo[i]);
+			tmp = true;
+			}
+			if (tmp == false) {
+				cout << " Заданного пункта назначения нет \n";
+			}
+			break;
 		}
 	} while (menu != 0);
 	system("pause");
