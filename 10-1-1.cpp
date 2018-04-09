@@ -59,13 +59,6 @@ void sort(Aeroflot a[], int n) {
 	}
 	delete[]ptr;
 }
-void destin(Aeroflot a[], int n, char *des) {
-	for (int i = 0; i < n; i++) {
-		if (strcmp(a[i].destination, des) == 0) {
-			printOne(a[i]);
-		}
-	}
-}
 void main() {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
@@ -73,6 +66,7 @@ void main() {
 	const int N = 5;
 	Aeroflot domodedovo[N];
 	bool flag = false;
+	bool tmp;
 	do {
 		cout << " Выберите действие : \n";
 		cout << " 1 - Ввод данных в массив, состоящий из пяти элементов типа Atroflot. \n";
@@ -104,8 +98,11 @@ void main() {
 			cout << " Введите пункт назначения :";
 			cin >> des;
 			for (int i = 0; i < N; i++) {
-			if (strcmp(domodedovo[i].destination, des) == 0)printOne(domodedovo[i]);
-			tmp = true;
+				tmp = false;
+				if (strcmp(domodedovo[i].destination, des) == 0) {
+					printOne(domodedovo[i]);
+					tmp = true;
+				}
 			}
 			if (tmp == false) {
 				cout << " Заданного пункта назначения нет \n";
