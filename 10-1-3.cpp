@@ -59,8 +59,8 @@ void sort(Student a[], int n) {
 }
 void print(Student a[], int n) {
 	for (int i = 0; i < n; i++) {
-		cout << " Фамилия : "<< a[i].lastname << endl;
-		cout << " Группа : "<< a[i].grupa << endl;
+		cout << " Фамилия : " << a[i].lastname << endl;
+		cout << " Группа : " << a[i].grupa << endl;
 		cout << " Успеваемость : ";
 		for (int j = 0; j < 5; j++) {
 			cout << " " << a[i].acadPer[j];
@@ -72,7 +72,7 @@ void print(Student a[], int n) {
 double medper(Student a, int n) {
 	int kol = 0;
 	for (int j = 0; j < 5; j++) {
-		if ((a.acadPer[j])>=9)kol++;
+		if ((a.acadPer[j]) == 5)kol++;
 	}
 	double sum = (double)kol / 5 * 100;
 	return (double)sum;
@@ -80,7 +80,7 @@ double medper(Student a, int n) {
 double medBad(Student a, int n) {
 	int kol = 0;
 	for (int j = 0; j < 5; j++) {
-		if (((a.acadPer[j]) == 2)||((a.acadPer[j])==3))kol++;
+		if (((a.acadPer[j]) == 2) || ((a.acadPer[j]) == 3))kol++;
 	}
 	double sum = (double)kol / 5 * 100;
 	return (double)sum;
@@ -91,7 +91,7 @@ void printGood(Student a[], int n) {
 			printOne(a[i]);
 		}
 	}
-	
+
 }
 void printMin(Student a[], int n) {
 	for (int i = 0; i < n; i++) {
@@ -104,10 +104,12 @@ void printMin(Student a[], int n) {
 void main() {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
-	const int N = 3;
-	Student gruppa[N];
-	vvod(gruppa, N);
-	print(gruppa, N);
+	int n;
+	cout << " Введите количество студентов \n";
+	cin >> n;
+	Student *gruppa=new Student[n];
+	vvod(gruppa, n);
+	print(gruppa, n);
 	int menu;
 	do {
 		cout << " Введите действие : \n";
@@ -122,13 +124,13 @@ void main() {
 		cin >> menu;
 		switch (menu) {
 		case 2:
-			printGood(gruppa, N);
+			printGood(gruppa, n);
 			break;
 		case 3:
-			printMin(gruppa, N);
+			printMin(gruppa, n);
 			break;
 		case 4:
-			sort(gruppa, N);
+			sort(gruppa, n);
 			break;
 		}
 	} while (menu != 0);
