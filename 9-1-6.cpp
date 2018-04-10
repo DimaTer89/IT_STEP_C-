@@ -85,6 +85,8 @@ void main() {
 		cout << " 0 - выход \n";
 		cin >> menu;
 		switch (menu) {
+		case 0:
+			break;
 		case 1:
 			plusKon(phone, n);
 			cout << " Успешно выполнено \n";
@@ -98,8 +100,8 @@ void main() {
 			do {
 				cout << " Выберите номер контакта для удаления :";
 				cin >> num;
-				if (num > n)cout << " В справочнике нет контакта с таким номером , введите снова !\n";
-			} while (num > n);
+				if (num < 1||num > n)cout << " В справочнике нет контакта с таким номером , введите снова !\n";
+			} while (num < 1||num > n);
 			minKon(phone, n, num);
 			cout << " Успешно выполнено \n";
 			break;
