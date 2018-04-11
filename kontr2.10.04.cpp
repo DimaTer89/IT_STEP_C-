@@ -35,7 +35,7 @@ void main() {
 		mycat(temp, pPtr, (len + 1));
 	}
 	*temp = '\0';
-	long teleNum;
+	long long teleNum;
 	teleNum = atol(tele);
 	cout << " Семизначный номер = " <<teleNum << endl;
 	system("pause");
