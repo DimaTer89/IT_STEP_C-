@@ -1,4 +1,4 @@
-/*Разработайте структуру, содержащую битовые поля. Структура должна хранить информацию о конфигурации компьютера. 
+/*Разработайте структуру, содержащую битовые поля. Структура должна хранить информацию о конфигурации компьютера.
 Например, корпус AT – 0, ATX – 1; видео на борту – 0 , видеокарта – 1 и т.д. Создайте массив записей о компьютерах из 5 элементов. Реализуйте следующий функционал:
 · Печать всех записей;
 · Поиск и печать записей о компьютерах с корпусом ATX.
@@ -37,28 +37,41 @@ void vvod(PC &a) {
 	a.RAM = tmp;
 }
 void findATX(PC a[], int n) {
-	char kor[] = "ATX";
-	PC **ptr = new PC*[n];
 	for (int i = 0; i < n; i++) {
-		if (strcmp(ptr[i]->korp, kor) == 0) {
-			printOne(*ptr[i]);
+		if (a[i].korp == 1) {
+			printOne(a[i]);
 		}
+		cout << " ============================= \n";
 	}
 }
 void main() {
 	setlocale(LC_ALL, "rus");
 	int n;
+	int menu;
 	cout << " Введите количество записей : ";
 	cin >> n;
 	PC *config = new PC[n];
 	for (int i = 0; i < n; i++) {
-		cout << " Введите данные " <<i+1<< endl;
 		vvod(config[i]);
 	}
-	for (int i = 0; i < n; i++) {
-		printOne(config[i]);
-	}
-	
+	do {
+		cout << " Выберите операцию \n";
+		cout << " 1 - Печать всех записей \n";
+		cout << " 2 - Поиск и печать записей о компьютерах с корпусом ATX \n";
+		cout << " 0 - выход \n";
+		cin >> menu;
+		switch (menu) {
+		case 1:
+			for (int i = 0; i < n; i++) {
+				printOne(config[i]);
+			}
+			break;
+		case 2:
+			cout << " Конфигурации с корпусом АТХ : \n";
+			findATX(config, n);
+			break;
+		}
+	} while (menu != 0);
 	delete[]config;
 	system("pause");
 }
