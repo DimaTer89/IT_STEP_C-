@@ -1,5 +1,5 @@
 /*Разработать набор функций для работы с очередью (создание очереди (добавление одного первого элемента),
-добавление в конец очереди, извлечение из начала очереди, 
+добавление в конец очереди, извлечение из начала очереди,
 проверка пустоты очереди, печать содержимого очереди, подсчет количества элементов в очереди, очистка очереди).
 Проиллюстрировать их работу на примере.*/
 #include <iostream>
@@ -8,18 +8,18 @@ struct Node {
 	int data;
 	Node* next;
 };
-void addQueue(int data, Node* &Head,Node* &Tail) {
+void addQueue(int data, Node* &Head, Node* &Tail) {
 	Node *elem = new Node;
 	elem->data = data;
 	elem->next = NULL;
-	Head=elem;
+	Head = elem;
 	Tail = elem;
 }
 void showQueue(Node* Head) {
 	Node*tmp = Head;
 	cout << " Содержание очереди : ";
 	while (tmp != NULL) {
-		cout <<  " " <<tmp->data;
+		cout << " " << tmp->data;
 		tmp = tmp->next;
 	}
 	cout << endl;
@@ -47,6 +47,16 @@ void clearQueue(Node*&Head) {
 		Head = Next;
 	}
 }
+int count(Node*Head) {
+	if (Head == NULL)return 0;
+	Node* tmp = Head;
+	int kol = 0;
+	while (tmp != NULL) {
+		kol++;
+		tmp = tmp->next;
+	}
+	return kol;
+}
 void main() {
 	setlocale(LC_ALL, "rus");
 	int menu;
@@ -72,16 +82,22 @@ void main() {
 			int elem;
 			cout << " Введите элемент : ";
 			cin >> elem;
-			addQueue(elem, Head,Tail);
+			addQueue(elem, Head, Tail);
+			cout << " Успешно выполнено \n";
 			break;
 		case 2:
+			if (Head == NULL) {
+				cout << " Очередь не создана \n";
+				break;
+			}
 			int num;
 			cout << " Введите элемент : ";
 			cin >> num;
-			DobElem(num,Tail);
+			DobElem(num, Tail);
 			break;
 		case 3:
 			UdalElem(Head);
+			cout << " Успешно выполнено \n";
 			break;
 		case 4:
 			if (Head != NULL)cout << " Очередь не пуста \n";
@@ -94,9 +110,16 @@ void main() {
 			}
 			showQueue(Head);
 			break;
+		case 6:
+			cout << " В очереди " << count(Head) << " элемента \n";
+			break;
 		case 7:
 			clearQueue(Head);
 			cout << " Очередь очищена .\n";
+			break;
+		case 0:
+			clearQueue(Head);
+			cout << " Очередь очищена.\n";
 			break;
 		}
 	} while (menu != 0);
