@@ -10,12 +10,20 @@ void main() {
 		double d;
 		long double l;
 	}FloatPoint;
-	float num;
-	cout << " Введите число :";
-	cin >> num;
-	FloatPoint.f = num;
+	float num1;
+	double num2;
+	long double num3;
+	cout << " Введите число типа float : ";
+	cin >> num1;
+	FloatPoint.f = num1;
+	cout << " Введите число типа double : ";
+	cin >> num2;
+	FloatPoint.d = num2;
+	cout << " Введите число типа long double : ";
+	cin >> num3;
+	FloatPoint.l = num3;
 	cout << " Введённое число в виде типа float = " << FloatPoint.f << endl;
-	cout << " Введённое число в виде типа double = " <<hex<< FloatPoint.d << endl;
-	cout << " Введённое число в виде типа long double = " << hex<<FloatPoint.l << endl;
+	cout << " Введённое число в виде типа double = " << FloatPoint.d << endl;
+	cout << " Введённое число в виде типа long double = " <<FloatPoint.l << endl;
 	system("pause");
 }
