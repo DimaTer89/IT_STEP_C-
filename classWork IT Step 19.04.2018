@@ -1,0 +1,44 @@
+#include <iostream>
+using namespace std;
+#include <stdio.h>
+void main() {
+	int c;
+	while ((c = getchar()) != EOF) {
+		putchar(c);
+	}
+}
+============================
+#include <iostream>
+using namespace std;
+#include <conio.h>
+void main() {
+	int c;
+	while ((c = _getch()) != '#') {
+		putchar(c);
+	}
+}
+============================
+#include <iostream>
+using namespace std;
+#include <stdio.h>
+void main() {
+	int c;
+	while ((c = getchar()) != EOF) {
+		putchar(c^15);
+	}
+}
+==============================
+#include <iostream>
+using namespace std;
+#include <stdio.h>
+void main() {
+	FILE *in, *out;
+	freopen_s(&in, "input.txt", "r", stdin);
+	freopen_s(&out, "output.txt", "w", stdout);
+	int c;
+	while ((c = getchar()) != EOF) {
+		putchar(c);
+	}
+	fclose(in);
+	fclose(out);
+}
