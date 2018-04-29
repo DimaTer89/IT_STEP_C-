@@ -8,13 +8,18 @@ void main() {
 	setlocale(LC_ALL, "rus");
 	const int N = 256;
 	FILE *in = NULL, *out = NULL;
-	fopen_s(&in, "data.txt", "r");
+	char filename[N], filename1[N];
+	cout << " Введите имя файла ввода ";
+	cin >> filename;
+	cout << " Введите имя файла вывода ";
+	cin >> filename1;
+	fopen_s(&in, filename, "r");
 	if (in == NULL) {
 		cout << " Не удалось открыть файл ввода \n";
 		system("pause");
 		exit(0);
 	}
-	fopen_s(&out, "result.txt", "w");
+	fopen_s(&out, filename1, "w");
 	if (out == NULL) {
 		cout << " Не удалось открыть файл ввывода \n";
 		system("pause");
@@ -46,3 +51,4 @@ void main() {
 	}
 	system("pause");
 }
+
