@@ -1,4 +1,4 @@
-/*Программа удаляет из тестового файла все слова ”help!” и подсчитывает количество оставшихся слов. 
+/*Программа удаляет из тестового файла все слова ”help!” и подсчитывает количество оставшихся слов.
 Имя исходного файла и имя файла-результата запрашиваются у пользователя.
 Количество слов выводится на консоль. Все лишние пробелы между словами могут быть удалены.*/
 #include <iostream>
@@ -25,20 +25,21 @@ void main() {
 		system("pause");
 		exit(0);
 	}
-	char bufer[N];
-	fgets(bufer, sizeof(bufer), in);
-	cout << bufer<<endl;
 	int kol = 0;
-	char *buf;
-        char *ptr=strtok_s(bufer, " \n", &buf);
-	while (ptr!=NULL) {
-		if (strcmp(ptr, "help")!=0) {
-			fprintf(out, "%s ",ptr);
-			kol++;
+	while (!feof(in)) {
+		char bufer[N];
+		fscanf_s(in, "%s", bufer, sizeof(bufer));
+		char *buf;
+		char *ptr = strtok_s(bufer, " \n", &buf);
+		while (ptr != NULL) {
+			if (strcmp(ptr, "help") != 0) {
+				fprintf(out, "%s ", ptr);
+				kol++;
+			}
+			ptr = strtok_s(NULL, " \n", &buf);
 		}
-		ptr = strtok_s(NULL, " \n", &buf);
 	}
-	cout << " В результирующем файле осталось " << kol << " cлов \n";
+	cout << " В файле вывода осталось " << kol << " cлов \n";
 	if (fclose(in) != 0) {
 		cout << " Не удалось закрыть файл ввода \n";
 		system("pause");
