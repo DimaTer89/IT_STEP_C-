@@ -27,10 +27,10 @@ void main() {
 	}
 	char bufer[N];
 	fgets(bufer, sizeof(bufer), in);
-	cout << bufer;
+	cout << bufer<<endl;
 	int kol = 0;
-	char*buf;
-    char *ptr=strtok_s(bufer, " \n", &buf);
+	char *buf;
+        char *ptr=strtok_s(bufer, " \n", &buf);
 	while (ptr!=NULL) {
 		if (strcmp(ptr, "help")!=0) {
 			fprintf(out, "%s ",ptr);
@@ -51,4 +51,3 @@ void main() {
 	}
 	system("pause");
 }
-
