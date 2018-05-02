@@ -28,15 +28,17 @@ void main() {
 	int kol = 0;
 	while (!feof(in)) {
 		char bufer[N];
-		fscanf_s(in, "%s", bufer, sizeof(bufer));
-		char *buf;
-		char *ptr = strtok_s(bufer, " \n", &buf);
-		while (ptr != NULL) {
-			if (strcmp(ptr, "help") != 0) {
-				fprintf(out, "%s ", ptr);
-				kol++;
+		while (fgets(bufer, sizeof(bufer), in)!='\0') {
+			char *buf;
+			char *ptr = strtok_s(bufer, " \n", &buf);
+			while (ptr != NULL) {
+				if (strcmp(ptr, "help") != 0) {
+					fprintf(out, "%s ", ptr);
+					kol++;
+				}
+				ptr = strtok_s(NULL, " \n", &buf);
 			}
-			ptr = strtok_s(NULL, " \n", &buf);
+			fputs("\n", out);
 		}
 	}
 	cout << " В файле вывода осталось " << kol << " cлов \n";
