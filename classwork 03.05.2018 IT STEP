@@ -1,0 +1,138 @@
+размер файла 
+#include <iostream>
+using namespace std;
+void main() {
+	setlocale(LC_ALL, "rus");
+	FILE* in;
+	if (fopen_s(&in, "data.txt", "rb") != 0) {
+		cout << " Не удалось открыть файл для чтения !\n";
+		system("pause");
+		return;
+	}
+	fseek(in, 0L, SEEK_END);
+	long k = ftell(in);
+	cout << " Размер файла = " << k << " байт \n";
+	system("pause");
+	fclose(in);
+}
+==========================================
+вывод файла задом наперёд
+#include <iostream>
+using namespace std;
+void main() {
+	setlocale(LC_ALL, "rus");
+	FILE* in;
+	if (fopen_s(&in, "data.txt", "rb") != 0) {
+		cout << " Не удалось открыть файл для чтения !\n";
+		system("pause");
+		return;
+	}
+	fseek(in, 0L, SEEK_END);
+	long k = ftell(in);
+	cout << " Размер файла = " << k << " байт \n";
+	for (int i = 1; i <= k; i++) {
+		fseek(in, -i, SEEK_END);
+		char c = (char) fgetc(in);
+		if (c != '\r') {
+			cout << c;
+		}
+	}
+	cout << endl;
+	system("pause");
+	fclose(in);
+}
+=====================================
+#include <iostream>
+using namespace std;
+void main(int argc, char* argv[]) {
+	setlocale(LC_ALL, "rus");
+	if (argc <= 1) {
+		cout << " Не указано имя файла при вызове \n";
+		system("pause");
+		return;
+	}
+	FILE* out;
+	if(fopen_s(&out, argv[1], "w")!=0){
+		cout << " Не удалось открыть файл для записи \n";
+		system("pause");
+		return;
+	}
+	cout << " Введите строку : ";
+	char str[128];
+	gets_s(str, 128);
+	fputs(str, out);//запись строки в файл 
+	fclose(out);//закрыть файл
+	system("pause");
+}
+================================
+#include <iostream>
+#include <time.h>
+using namespace std;
+void main() {
+	setlocale(LC_ALL, "rus");
+	srand(time(0));
+	const int N = 10;
+	int a[N];
+	for (int i = 0; i < N; i++) {
+		a[i] = rand() % 51;
+	}
+	FILE* out,*in;
+	if (fopen_s(&out, "data.dat", "wb") != 0) {
+		cout << " Не удалось открыть файл для записи \n";
+		system("pause");
+		return;
+	}
+	fwrite(a, sizeof(int), N, out);
+	fclose(out);
+	if (fopen_s(&in, "data.dat", "rb") != 0) {
+		cout << " Не удалось открыть файл для чтения \n";
+		system("pause");
+		return;
+	}
+	int b[N];
+	fread(b, sizeof(int), N, in);
+	for (int i = 0; i < N; i++) {
+		cout << " " << a[i];
+	}
+	cout << endl;
+	cout << " Введите номер числа : ";
+	int j;
+	cin >> j;
+	fseek(in, (j-1) * sizeof(int), SEEK_SET);
+	int l;
+	fread(&l, sizeof(int), 1, in);
+	cout << " Получено из файла : " << l << endl;
+	system("pause");
+}
+============================================
+#include <iostream>
+#include <time.h>
+using namespace std;
+void main() {
+	setlocale(LC_ALL, "rus");
+	FILE* in;
+	if (fopen_s(&in, "data.dat", "rb") != 0) {
+		cout << " Не удалось открыть файл для чтения \n";
+		system("pause");
+		return;
+	}
+	fseek(in, 0L, SEEK_END);
+	int kol = ftell(in);
+	kol = kol / sizeof(int);
+	int *b = new int[kol];
+	fseek(in, 0L, SEEK_SET);
+	fread(b, sizeof(int), kol, in);
+	for (int i = 0; i < kol; i++) {
+		cout << " " << b[i];
+	}
+	cout << endl;
+	cout << " Введите номер числа : ";
+	int j;
+	cin >> j;
+	fseek(in, (j - 1) * sizeof(int), SEEK_SET);
+	int l;
+	fread(&l, sizeof(int), 1, in);
+	cout << " Получено из файла : " << l << endl;
+	system("pause");
+}
+===============================================
