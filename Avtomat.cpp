@@ -257,3 +257,84 @@ void main() {
 	fclose(out);
 	system("pause");
 }
+==============================================
+	/*В закусочной стоит музыкальный автомат, который фиксирует статистику проигрываемых песен.
+Каждый раз после исполнения песни информация о ней добавляется в простой текстовый файл в виде отдельной строки.
+В строке указываются название песни, исполнитель и время звучания, разделенные косыми чертами.
+Требуется подсчитать для каждой песни общую продолжительность ее звучания и вывести в результирующий файл список песен,
+упорядоченный по этому общему времени (в порядке убывания: первыми выводятся песни, которые в общей сложности звучали больше всего).*/
+#include <iostream>
+using namespace std;
+#define N 128
+struct song {
+	char name[N];
+	char artist[N];
+	double time;
+	song* next;
+};
+void put(song*&tail, song *elem) {
+	tail->next = elem;
+	tail = elem;
+}
+void create(song*&head, song*&tail,song*elem) {
+	head = elem;
+	tail = elem;
+}
+song *parsing(char str[]) {
+	char *word, *next;
+	word=strtok_s(str, "/", &next);
+	song *el = new song;
+	strcpy_s(el->name, word);
+	word = strtok_s(NULL, "/", &next);
+	strcpy_s(el->artist, word);
+	word = strtok_s(NULL, "/", &next);
+	el->time = atof(word);
+	el->next = NULL;
+	return el;
+}
+void print(song *head) {
+	while (head != NULL) {
+		cout << head->name << " " << head->artist << " " << head->time << endl;
+		head = head->next;
+	}
+}
+void getFile(song* head, FILE* out) {
+	while (head != NULL) {
+		fprintf(out, "/", head->name,sizeof(head->name));
+		fprintf(out, "/", head->artist,sizeof(head->artist));
+		fprintf(out, "\n", head->time,sizeof(double));
+		head = head->next;
+	}
+}
+void main() {
+	setlocale(LC_ALL, "rus");
+	FILE* in, *out;
+	if (fopen_s(&in, "songlist.txt", "r") != NULL) {
+		cout << " Не удалось открыть файл для чтения \n";
+		system("pause");
+		return;
+	}
+	if (fopen_s(&out, "songlist2.txt", "w") != NULL) {
+		cout << " Не удалось открыть файл для записи \n";
+		system("pause");
+		return;
+	}
+	song* head = NULL;
+	song* tail;
+	song*elem;
+	char buffer[N];
+	fgets(buffer, N, in);
+	if (fgets(buffer, N, in) != NULL) {
+		elem = parsing(buffer);
+		create(head, tail, elem);
+	}
+	while (fgets(buffer, N, in) != NULL) {
+		elem = parsing(buffer);
+		put(tail, elem);
+	}
+	print(head);
+	getFile(head, out);
+	fclose(in);
+	fclose(out);
+	system("pause");
+}
