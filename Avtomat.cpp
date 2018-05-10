@@ -258,12 +258,7 @@ void main() {
 	system("pause");
 }
 ==============================================
-	/*В закусочной стоит музыкальный автомат, который фиксирует статистику проигрываемых песен.
-Каждый раз после исполнения песни информация о ней добавляется в простой текстовый файл в виде отдельной строки.
-В строке указываются название песни, исполнитель и время звучания, разделенные косыми чертами.
-Требуется подсчитать для каждой песни общую продолжительность ее звучания и вывести в результирующий файл список песен,
-упорядоченный по этому общему времени (в порядке убывания: первыми выводятся песни, которые в общей сложности звучали больше всего).*/
-#include <iostream>
+	#include <iostream>
 using namespace std;
 #define N 128
 struct song {
@@ -272,69 +267,127 @@ struct song {
 	double time;
 	song* next;
 };
-void put(song*&tail, song *elem) {
-	tail->next = elem;
-	tail = elem;
-}
-void create(song*&head, song*&tail,song*elem) {
-	head = elem;
-	tail = elem;
-}
-song *parsing(char str[]) {
+song* parsing(char *buffer) {
+	song*elem = new song;
 	char *word, *next;
-	word=strtok_s(str, "/", &next);
-	song *el = new song;
-	strcpy_s(el->name, word);
+	word = strtok_s(buffer, "/", &next);
+	strcpy_s(elem->name, word);
 	word = strtok_s(NULL, "/", &next);
-	strcpy_s(el->artist, word);
+	strcpy_s(elem->artist, word);
 	word = strtok_s(NULL, "/", &next);
-	el->time = atof(word);
-	el->next = NULL;
-	return el;
-}
-void print(song *head) {
+	elem->time = atof(word);
+	elem->next = NULL;
+	return elem;
+};
+song* findPlace(song* elem, song* head) {
+	while (head != NULL) {
+		if (strcmp(head->name, elem->name) == 0 && strcmp(head->artist, elem->artist) == 0) {
+			return head;
+		}
+		head = head->next;
+	}
+	return NULL;
+};
+void put(song *elem, song *&head) {
+	elem->next = head;
+	head = elem;
+};
+void readData(FILE* in, song *&head) {
+	char buffer[N];
+	while (fgets(buffer, N, in) != NULL) {
+		song *elem = parsing(buffer);//разбор строки и создание песни
+		song *place = findPlace(elem, head);//находит песню в списке.Возвращает 0, если такой песни нет
+		if (place != NULL) {
+			place->time += elem->time;
+			delete elem;
+		}
+		else {
+			put(elem, head);//поместить новую запись в список
+		}
+	}
+};
+void printData(FILE*out,song*head) {
+	if (head == NULL) {
+		cout << " Список пуст \n";
+	}
 	while (head != NULL) {
 		cout << head->name << " " << head->artist << " " << head->time << endl;
 		head = head->next;
 	}
-}
-void getFile(song* head, FILE* out) {
+};
+void creatMas(song *head, song **&mas, int &kol) {
+	kol = 0;
+	song *tmp = head;
+	while (tmp != NULL) {
+		kol++;
+		tmp = tmp->next;
+	}
+	if (kol == 0) {
+		cout << " Список пуст \n";
+		system("pause");
+		exit(0);
+	}
+	mas = new song*[kol];//выделяем память под массив указателей
+	int i = 0;
 	while (head != NULL) {
-		fprintf(out, "/", head->name,sizeof(head->name));
-		fprintf(out, "/", head->artist,sizeof(head->artist));
-		fprintf(out, "\n", head->time,sizeof(double));
+		mas[i] = head;
+		i++;
 		head = head->next;
 	}
-}
+};
+void mysort(song **mas, int kol) {
+	for (int k =kol-1; k>0;k--) {
+		for (int i = 0; i < k; i++) {
+			if (mas[i]->time < mas[i + 1]->time) {
+				song *tmp = mas[i];
+				mas[i] = mas[i + 1];
+				mas[i + 1] = tmp;
+			}
+		}
+	}
+};
+void writeData(FILE*out, song*head) {
+	song **mas;
+	int kol;
+	creatMas(head, mas, kol);//создание массива указателей на элементы списка
+	mysort(mas, kol);
+	for (int i = 0; i < kol; i++) {
+		fprintf(out, "%s/%s/%.2f\n", mas[i]->name, mas[i]->artist, mas[i]->time);
+	}
+	delete[]mas;
+};
+void clear(song*&head) {
+	while (head != NULL) {
+		song*tmp = head;
+		head = head->next;
+		delete tmp;
+	}
+};//очистка списка памяти
 void main() {
 	setlocale(LC_ALL, "rus");
-	FILE* in, *out;
-	if (fopen_s(&in, "songlist.txt", "r") != NULL) {
-		cout << " Не удалось открыть файл для чтения \n";
+	FILE *in, *out;
+	char filename[N];
+	cout << " Введите имя файла для чтения : ";
+	cin >> filename;
+	if (fopen_s(&in, filename, "r") != NULL) {
+		cout << " Не удалось открыть файл "<<filename<<" для чтения \n";
 		system("pause");
 		return;
 	}
-	if (fopen_s(&out, "songlist2.txt", "w") != NULL) {
-		cout << " Не удалось открыть файл для записи \n";
+	cout << " Введите имя файла для записи : ";
+	cin >> filename;
+	if (fopen_s(&out, filename, "w") != NULL) {
+		cout << " Не удалось открыть файл " << filename << " для записи \n";
 		system("pause");
 		return;
 	}
 	song* head = NULL;
-	song* tail;
-	song*elem;
-	char buffer[N];
-	fgets(buffer, N, in);
-	if (fgets(buffer, N, in) != NULL) {
-		elem = parsing(buffer);
-		create(head, tail, elem);
-	}
-	while (fgets(buffer, N, in) != NULL) {
-		elem = parsing(buffer);
-		put(tail, elem);
-	}
-	print(head);
-	getFile(head, out);
+	readData(in, head);// чтения данных из файла в список
+	printData(out, head);//сортировка и запись результата в файл
+	writeData(out, head);
+	clear(head);//очистка списка памяти
 	fclose(in);
 	fclose(out);
+	cout << " Работа успешно завершена \n";
 	system("pause");
 }
