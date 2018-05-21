@@ -1,0 +1,390 @@
+#include <windows.h>
+#include <iostream>
+using namespace std;
+
+class Test
+{
+	//так как спецификатор доступа не указан
+	//данная переменная будет по умолчанию закрыта
+	//для доступа вне класса (private);
+	int one;
+	//спецификатор доступа public
+	//все члены, идущие после него
+	//будут открыты для доступа извне
+public:
+	int two;
+	//инициализировать переменные в классе
+	//при создании запрещено, поэтому мы определяем
+	//метод, реализующий данное действие
+	void Initial(int o, int t)
+	{
+		one = o;
+		two = t;
+	}
+	//метод, реализующий изменение private переменной one
+	void Change_One(int o)
+	{
+		one = o;
+	}
+	//метод показывающий переменные класса
+	//на экран
+	void Show()
+	{
+		cout << "\n";
+		cout << "Переменная-член one=" << one << endl;
+		cout << "Переменная-член two=" << two << endl;
+		cout << "\n";
+	}
+};
+void main()
+{
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+	system("cls");
+	//создается объект с типом Test
+	Test obj;
+	//вызывается функция, инициализирующая его свойства
+	obj.Initial(2, 5);
+	//показ на экран
+	obj.Show(); // 2 5
+				//прямая запись в открытую переменную two
+				//с переменной one 
+				//obj.two=obj.one; такая запись невозможна, так
+				//как доступ к ней закрыт
+	obj.Change_One(105);
+	obj.two = 45;
+	//снова показ на экран
+	obj.Show(); //105 45
+	system("pause");
+}
+==================================================
+#include <windows.h>
+#include <iostream>
+using namespace std;
+
+class Test
+ {
+  //так как спецификатор доступа не указан
+  //данная переменная будет по умолчанию закрыта
+  //для доступа вне класса (private);
+  int one;
+  //спецификатор доступа public
+  //все члены, идущие после него
+  //будут открыты для доступа извне
+  public:
+   int two;
+   //Конструктор класса
+   Test()
+    {
+     one=0;
+     two=0;
+    }
+   //инициализировать переменные в классе
+   //при создании запрещено, поэтому мы определяем
+   //метод, реализующий данное действие
+   void Initial(int o,int t)
+		  {
+     one=o;
+     two=t;
+    }
+   //метод, реализующий изменение private переменной one
+   void Change_One(int o)
+		  {
+     one=o;
+    }
+   //метод показывающий переменные класса
+   //на экран
+   void Show()
+		  {     
+     cout << "\n";    
+		   cout << "Переменная-член one=" << one << endl;
+		   cout << "Переменная-член two=" << two << endl;
+		   cout << "\n";
+    }         
+ };
+void main()
+ {
+  SetConsoleCP(1251);
+  SetConsoleOutputCP(1251);
+  system("cls");
+  //создается объект с типом Test
+  Test obj;//(здесь сработает конструктор)
+  //показ на экран
+  obj.Show(); // 0 0
+  //вызывается функция, инициализирующая его свойства
+  obj.Initial(2,5);
+  //показ на экран
+  obj.Show(); // 2 5
+  //прямая запись в открытую переменную two
+  //с переменной one 
+  //obj.two=obj.one; такая запись невозможна, так
+  //как доступ к ней закрыт
+  obj.Change_One(105);
+  obj.two=45;
+  //снова показ на экран
+  obj.Show(); //105 45
+  system("pause")
+ }
+ ==========================================================
+ #include <windows.h>
+#include <iostream>
+
+using namespace std;
+
+//описание класса Point
+class Point
+{
+	int x, y;
+	//координаты точки, по умолчанию имеют
+	//уровень доступа private
+public:
+	//конструктор присваивает переменным класса x и y
+	//начальные значения соответственно x0 и y0
+	Point(int x0, int y0)
+	{
+		x = x0;
+		y = y0;
+	}
+	//функция вывода координат точки на экран
+	void ShowPoint()
+	{
+		cout << "x = " << x << endl;
+		cout << "y = " << y << endl;
+	}
+};
+void main()
+{
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+	system("cls");
+	Point A(1, 3); //создаем точку А
+				   //(объект типа Point) с координатами
+				   //x = 1, y = 3 (вызывается конструктор Point(1, 3)
+	cout << "Коордитаты точки A:" << endl;
+	A.ShowPoint(); //выводим координаты точки А
+				   //на экран
+	system("pause");(cin>get())
+}
+=================================================
+#include <iostream>   
+using namespace std;
+
+class Box
+{
+private:
+	int m_width;
+	int m_length;
+	int m_height;
+public:
+	Box(int width, int length, int height)
+		: m_width(width), m_length(length), m_height(height)     // инициализирующий список   
+	{
+	}
+	int Volume()
+	{
+		return m_width * m_length * m_height;
+	}
+};
+
+int main()
+{
+	Box b(42, 21, 12);
+	cout << "The volume is " << b.Volume() << endl;
+	system("pause");
+}
+=======================================
+#include <windows.h>
+#include <iostream>
+
+using namespace std;
+
+class _3D
+ {
+  double x,y,z;
+  public:
+   _3D();
+   _3D(double initX,double initY,double initZ);
+ };
+ //конструктор класса _3D с параметрами
+ _3D::_3D(double initX,double initY,double initZ)
+  {
+   x = initX;
+   y = initY;
+   z = initZ;
+   cout << "\nРабота конструктора с аргументами!!!\n";
+   cout << "x=" << x << endl;
+   cout << "y=" << y << endl;
+   cout << "z=" << z << endl;
+  }
+ //конструктор класса _3D без параметров
+ _3D::_3D()
+  {
+   x=y=z=0;
+   cout << "\nРабота конструктора без аргументов!!!\n";
+   cout << "x=" << x << endl;
+   cout << "y=" << y << endl;
+   cout << "z=" << z << endl;
+  }
+void main()
+ {
+  SetConsoleCP(1251);
+  SetConsoleOutputCP(1251);
+  system("cls");
+
+  //создается объект A, вызывается
+  //конструктор без параметров
+  //все члены класса инициализируются нулем
+  //на экране надпись "No arguments!!!"
+  _3D A;
+  //создается объект B, вызывается
+  //конструктор c параметрами
+  //все члены класса инициализируются
+  //соответствующими переменными
+  //на экране надпись "With arguments!!!"
+  _3D B (3,4,0);
+ }
+=====================================
+#include <windows.h>
+#include <iostream>
+
+using namespace std;
+
+enum resolution { low, medium, high };
+
+class display
+{
+	int width;
+	int height;
+	resolution res;
+public:
+	void set_dim(int w, int h)
+	{
+		width = w;
+		height = h;
+	}
+	void get_dim(int &w, int &h)
+	{
+		w = width;
+		h = height;
+	}
+	void set_res(resolution r)
+	{
+		res = r;
+	}
+	resolution get_res()
+	{
+		return res;
+	}
+};
+
+char names[3][8] = {
+	"Низкий",
+	"Средний",
+	"Высокий"
+};
+
+int main()
+{
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+
+	display display_mode[3];
+	int i, w, h;
+
+	display_mode[0].set_res(low);
+	display_mode[0].set_dim(640, 480);
+	display_mode[1].set_res(medium);
+	display_mode[1].set_dim(800, 600);
+	display_mode[2].set_res(high);
+	display_mode[2].set_dim(1600, 1200);
+	cout << "Возможные режимы отображения данных:\n\n";
+	for (i = 0; i<3; i++)
+	{
+		cout << names[display_mode[i].get_res()] << ": ";
+		display_mode[i].get_dim(w, h);
+		cout << w << " x " << h << "\n";
+	}
+	cin.get();
+	return 0;
+}
+======================================
+#include <windows.h>
+#include <iostream>
+
+using namespace std;
+
+class samp
+ {
+  int a;
+  public:
+   samp(int n)
+	   {
+	    a=n;
+	   }
+   int get_a()
+	   {
+	    return a;
+	   }
+ };
+
+int main()
+ {
+  samp sampArray[4]={-1,-2,-3,-4};
+  int i;
+  for(i=0;i<4;i++)
+   cout << "sampArray[" << i << "]=" << sampArray[i].get_a() << endl;
+   cout << "\n";
+  return 0;
+}
+======================================================
+#include <windows.h>
+#include <iostream>
+
+using namespace std;
+
+class samp
+ {
+  int a,b;
+  public:
+   samp(int n,int m)
+	   {
+	    a=n;
+	    b=m;
+	   }
+   int get_a()
+	   {
+	    return a;
+	   }
+   int get_b()
+	   {
+	    return b;
+	   }
+ };
+
+int main()
+ {
+  samp sampArray[4][2]=
+   {
+    samp(1,2),
+   	samp(3,4),
+	   samp(5,6),
+	   samp(7,8),
+	   samp(9,10),
+	   samp(11,12),
+	   samp(13,14),
+	   samp(15,16)
+   };
+  int i;
+  for(i=0;i<4;i++)
+   {
+    cout << "sampArray[" << i << "][0]="  << sampArray[i][0].get_a() << " ";
+	   cout << "sampArray[" << i << "][0]="  << sampArray[i][0].get_b() << "\n";
+	   cout << "sampArray[" << i << "][1]="  << sampArray[i][1].get_a() << " ";
+	   cout << "sampArray[" << i << "][1]="  << sampArray[i][1].get_b() << "\n";
+   }
+  cout << "\n";
+  return 0;
+ }
+==================================================
+
+
