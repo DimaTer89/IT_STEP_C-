@@ -282,3 +282,182 @@ int search_NOK (int x, int y)
         if (!(x%i) && !(y%i)) return i;
     else return 1;
 }
+=================================================
+	#include <windows.h>
+#include <iostream>
+
+using namespace std;
+
+class prim
+{
+	int numb;
+	//статическое поле
+	static int stat_;
+public:
+	//Конструктор
+	prim(int i)
+	{
+		numb = i;
+	}
+	/*
+	Статическая функция. Указатель this не
+	определен, поэтому выбор объекта
+	осуществляется по явно переданному указателю.
+	Поле stat_ не требует указателя на объект,
+	т.к. оно общее для всех объектов класса prim.
+	*/
+	static void func(int i, prim* p = 0)
+	{
+		//если хотя бы один объект есть
+		if (p)
+			p->numb = i;
+		//если объектов класса нет
+		else
+			stat_ = i;
+	}
+	/*
+	Если статическая функция обращается только к
+	статическому члену класса, то никаких указателей
+	не требуется.
+	*/
+	static void show()
+	{
+		cout << "stat_=" << stat_ << "\n\n";
+	}
+	//показ нестатического члена
+	void show2()
+	{
+		cout << "numb=" << numb << "\n\n";
+	}
+};
+
+//Инициализация статического члена класса.
+int prim::stat_ = 8;
+
+void main()
+{
+	/*
+	До создания объектов типа prim возможен
+	единственный способ обращения к статической
+	функции-члену.
+	*/
+	prim::show();
+	//Можно изменить значение статического члена класса.
+	prim::func(10);
+	/*
+	После создания объекта типа prim можно обратиться
+	к статической функции обычным для абстрактных
+	типов способом.
+	*/
+	//Создается объект obj и его поле numb
+	//становится равным 23.
+	prim obj(23);
+	obj.show2();
+	//Можно изменить значение созданного объекта.
+	prim::func(20, &obj); //obj.numb 20.
+	obj.show2();
+	obj.func(27, &obj); //obj.numb 27.
+	obj.show2();
+	system("pause");
+}
+================================================
+	#include <windows.h>
+#include <iostream>
+
+using namespace std;
+
+class temp
+ {  
+  static int number;
+  static char name[30];
+  int id;
+  public:
+   void setid(void);
+   int getid(void);
+   static char* getname(void);
+ };
+
+int temp::number=0;
+char temp::name[]="Имя класса";
+
+char* temp::getname()
+ {
+  return(name);
+ }
+
+void temp::setid(void)
+ {
+  number++;
+  id=number;
+ }
+
+int temp::getid(void)
+ {
+  return(id);
+ }
+
+int main()
+ {
+  SetConsoleCP(1251);
+  SetConsoleOutputCP(1251);
+  
+  temp a, b;
+  a.setid();
+  b.setid();
+  cout << "a.id = " << a.getid() << endl;
+  cout << "b.id = " << b.getid() << endl;
+  cout << temp::getname() << "\n";
+  cin.get();
+  return 0;
+ }
+===========================================
+	#include <windows.h>
+#include <iostream>
+
+using namespace std;
+
+class Singleton
+ {
+  private:
+  //указатель на единственный экземпляр класса
+  static Singleton* s;
+  int k;
+  //закрытый конструктор
+  Singleton(int i)
+   {
+    k=i;
+   }
+  public:
+   //функция для получения указателя на
+   //единственный экземпляр класса
+   static Singleton* getReference()
+	   {
+     return s;
+    }
+   //получение значения нестатического члена класса
+   int getValue()
+	   {
+     return k;
+    }
+   //перезапись значения нестатического члена класса
+   void setValue(int i)
+	   {
+     k=i;
+    }
+ };
+
+// Инициализация статического члена класса.
+Singleton* Singleton::s=new Singleton(3);
+
+void main()
+ {
+  //получение указателя на
+  //единственный экземпляр класса
+  Singleton* p=Singleton::getReference();
+  //работа с компонентом объекта
+  cout << p->getValue() << "\n\n";
+  p->setValue(p->getValue()+5);
+  cout << p->getValue() << "\n\n";
+}
+==========================
+	
