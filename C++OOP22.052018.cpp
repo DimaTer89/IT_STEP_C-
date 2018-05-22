@@ -274,3 +274,11 @@ void main ()
   cout << "Перед завершением функции main() количество объектов - " << object_::num_obj << ".\n";
  }
 ==============================================
+int search_NOK (int x, int y)
+{
+    int count=(x<y) ? x : y;
+ 
+    for (int i=2; i<=count; i++)
+        if (!(x%i) && !(y%i)) return i;
+    else return 1;
+}
